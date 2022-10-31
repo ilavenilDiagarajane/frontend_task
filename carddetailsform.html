@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="form.css" />
+    <title>card details form</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <img
+          srcset="image/bg-main-mobile.png, image/bg-main-desktop.png"
+          alt="background"
+          class="background"
+        />
+        <div>
+          <img
+            src="image/bg-card-front.png"
+            alt="background"
+            class="card-front"
+          />
+        </div>
+        <div>
+          <img
+            src="image/bg-card-back.png"
+            alt="background"
+            class="card-back"
+          />
+        </div>
+        <span class="card-zero">000</span>
+
+        <img src="image/card-logo.svg" alt="card-logo" class="circle" />
+        <span class="cardnumber" id="number">0000 0000 0000 0000</span>
+        <span class="cardholdername" id="name">Jane Appleseed</span>
+        <span class="cardmmyy" id="mmyy">00/00</span>
+      </div>
+      <div class="right">
+        <form id="form">
+          <div class="form-group">
+            <label class="label"> Cardholder Name </label>
+            <input
+              type="text"
+              placeholder="eg Jane Appleseed "
+              required
+              class="input-group"
+              id="card_name"
+              onchange="getdetails()"
+            />
+          </div>
+          <div class="form-group">
+            <label class="label">Card Number</label>
+            <input
+              type="number"
+              oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              minlength="16"
+              maxlength="16"
+              placeholder="e.g. 1234 5678 9123 0000"
+              required
+              class="input-group"
+              id="card_number"
+              onchange="getdetails()"
+            />
+          </div>
+          <div class="form-group2">
+            <div>
+              <label class="label"> Exp. Date (MM/YY)</label>
+              <div class="form-group3">
+                <input
+                  type="number"
+                  placeholder="MM"
+                  oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  minlength="2"
+                  maxlength="2"
+                  required
+                  class="MM"
+                  id="card_month"
+                  onchange="getdetails()"
+                />
+                <input
+                  type="number"
+                  placeholder="YY"
+                  oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  minlength="2"
+                  maxlength="2"
+                  required
+                  class="MM"
+                  id="card_year"
+                  onchange="getdetails()"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="label"> CVC</label>
+              <div class="form-group3">
+                <input
+                  type="number"
+                  oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  minlength="3"
+                  maxlength="3"
+                  placeholder="e.g. 123"
+                  required
+                  class="cvc"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button id="submit_btn" type="button" onclick="myFunction()">
+            Confirm
+          </button>
+        </form>
+        <div class="message" id="message">
+          <img
+            src="image/icon-complete.svg"
+            alt="card-logo"
+            class="icon-complete"
+          />
+          <h3>THANK YOU!</h3>
+          <p>We've added your card details</p>
+          <button id="submit_btn" type="button">Continue</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+       
+      function getdetails() {
+        var name = document.getElementById("card_name").value;
+        var number = document.getElementById("card_number").value;
+        var mm = document.getElementById("card_month").value;
+        var yy = document.getElementById("card_year").value;
+        var input = document.getElementById("card_number");
+
+        document.getElementById("name").innerHTML = name;
+        document.getElementById("number").innerHTML = number.toString().replace(/\d{4}(?=.)/g, '$& ')
+        document.getElementById("mmyy").innerHTML = mm + "/" + yy;
+      }
+      function myFunction() {
+        var name = document.getElementById("card_name").value;
+        var number = document.getElementById("card_number").value;
+        var mm = document.getElementById("card_month").value;
+        var yy = document.getElementById("card_year").value;
+        if (name != "" && number != "" && mm != "" && yy != "") {
+          var x = document.getElementById("form");
+          x.style.display = "none";
+          var x = document.getElementById("message");
+          x.style.display = "flex";
+        } 
+      }
+    </script>
+  </body>
+</html>
